@@ -1,4 +1,4 @@
-import assertNumeric from "../utils/assert-numeric";
+import assertNumeric from '../utils/assert-numeric';
 
 export default function toFloat(value: any) {
   try {

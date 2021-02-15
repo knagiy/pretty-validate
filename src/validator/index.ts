@@ -1,15 +1,15 @@
 // Validators
 import isEnum from './isEnum';
-import isInt from "./isInt";
-import isNumber from "./isNumber";
+import isInt from './isInt';
+import isNumber from './isNumber';
 import isString from './isString';
 import required from './required';
 
 // Sanitizers
 import toLowerCase from './toLowerCase';
 import toUpperCase from './toUpperCase';
-import toInt from "./toInt";
-import toFloat from "./toFloat";
+import toInt from './toInt';
+import toFloat from './toFloat';
 
 const validations: any = {
   validators: {
@@ -23,7 +23,7 @@ const validations: any = {
     toLowerCase,
     toUpperCase,
     toInt,
-    toFloat
+    toFloat,
   },
 };
 

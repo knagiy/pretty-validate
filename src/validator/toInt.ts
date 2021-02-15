@@ -1,4 +1,4 @@
-import assertNumeric from "../utils/assert-numeric";
+import assertNumeric from '../utils/assert-numeric';
 
 export default function toInt(value: any, radix: number = 10) {
   try {
