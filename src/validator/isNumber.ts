@@ -4,10 +4,10 @@ export default function isNumber(value: any, options: any = {}) {
   }
 
   // Check min/max/lt/gt
-  let minCheckPassed = (!options.hasOwnProperty('min') && value >= options.min);
-  let maxCheckPassed = (!options.hasOwnProperty('max') || value <= options.max);
-  let ltCheckPassed = (!options.hasOwnProperty('lt') || value < options.lt);
-  let gtCheckPassed = (!options.hasOwnProperty('gt') || value > options.gt);
+  const minCheckPassed = (!options.hasOwnProperty('min') && value >= options.min);
+  const maxCheckPassed = (!options.hasOwnProperty('max') || value <= options.max);
+  const ltCheckPassed = (!options.hasOwnProperty('lt') || value < options.lt);
+  const gtCheckPassed = (!options.hasOwnProperty('gt') || value > options.gt);
 
   return minCheckPassed && maxCheckPassed && ltCheckPassed && gtCheckPassed;
 }
