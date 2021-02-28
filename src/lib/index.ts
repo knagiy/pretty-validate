@@ -6,14 +6,13 @@ import isEnum from './isEnum';
 import isInt from './isInt';
 import isNumber from './isNumber';
 import isString from './isString';
-
+import isBoolean from './isBoolean';
 import required from './required';
 
 // Sanitizers
 import toLowerCase from './toLowerCase';
 import toUpperCase from './toUpperCase';
 import toInt from './toInt';
-import toFloat from './toFloat';
 
 const validations: any = {
   validators: {
@@ -21,6 +20,7 @@ const validations: any = {
     isInt,
     isNumber,
     isString,
+    isBoolean,
     required,
 
     // validator JS methods
@@ -34,7 +34,6 @@ const validations: any = {
     isIP: validatorJS.isIP,
     isIPRange: validatorJS.isIPRange,
     isFQDN: validatorJS.isFQDN,
-    isBoolean: validatorJS.isBoolean,
     isIBAN: validatorJS.isIBAN,
     isBIC: validatorJS.isBIC,
     isAlpha: validatorJS.isAlpha,
@@ -53,9 +52,6 @@ const validations: any = {
     isMultibyte: validatorJS.isMultibyte,
     isSemVer: validatorJS.isSemVer,
     isSurrogatePair: validatorJS.isSurrogatePair,
-    isFloat: validatorJS.isFloat,
-    isFloatLocales: validatorJS.isFloatLocales,
-    isDecimal: validatorJS.isDecimal,
     isHexadecimal: validatorJS.isHexadecimal,
     isOctal: validatorJS.isOctal,
     isDivisibleBy: validatorJS.isDivisibleBy,
@@ -112,9 +108,9 @@ const validations: any = {
     toLowerCase,
     toUpperCase,
     toInt,
-    toFloat,
 
     // validator JS methods
+    toFloat: validatorJS.toFloat,
     toDate: validatorJS.toDate,
     toBoolean: validatorJS.toBoolean,
     toString: validatorJS.toString,
