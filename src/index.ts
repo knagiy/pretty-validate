@@ -3,7 +3,7 @@ import lib from './lib';
 import { DetailedError } from './utils/detailed-error';
 import { ConstructorOptions } from './@types/constructorOptions.types';
 
-export class Validator {
+export default class Validator {
   protected sanitizers: any;
   protected validators: any;
 
