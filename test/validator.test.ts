@@ -1,10 +1,12 @@
-import validate from "../src";
+import { Validator } from "../src";
 
 describe('Validate Method', () => {
+  const validator = new Validator();
+
   describe("Validation Rules", () => {
     it("default value", () => {
       const object: any = {};
-      const result = validate(object, {
+      const result = validator.validate(object, {
         param: { default: "default value" }
       });
       expect(object.param).toEqual("default value");
@@ -13,7 +15,7 @@ describe('Validate Method', () => {
 
     it("discard extra parameters", () => {
       const object: any = { param: "admin", extra: "extra" };
-      const result = validate(object, {
+      const result = validator.validate(object, {
         param: { default: "default value" }
       },
         {
@@ -30,7 +32,7 @@ describe('Validate Method', () => {
     it("strict mode - no extra params allowed", () => {
       const object = { param: "admin", extra: "extra" };
       expect(() => {
-        validate(object,
+        validator.validate(object,
           { param: { required: true } },
         { strict: true }
         );
@@ -40,7 +42,7 @@ describe('Validate Method', () => {
     it("required()", () => {
       const object = { param: "admin" };
       expect(() => {
-        validate(object, {
+        validator.validate(object, {
           password: { required: true },
         });
       }).toThrow(errorMessage);
@@ -49,7 +51,7 @@ describe('Validate Method', () => {
     it("required() empty string", () => {
       const object = { param: "" };
       expect(() => {
-        validate(object, {
+        validator.validate(object, {
           param: { required: true },
         });
       }).toThrow(errorMessage);
@@ -57,11 +59,9 @@ describe('Validate Method', () => {
   });
 
   describe("Passing validation Rules", () => {
-    const errorMessage = "Some of the fields did not pass validation";
-
     it("strict mode - no extra params allowed", () => {
       const object = { param: "admin" };
-      const result = validate(object,
+      const result = validator.validate(object,
         { param: { required: true } },
         { strict: true }
       );
@@ -70,7 +70,7 @@ describe('Validate Method', () => {
 
     it("required()", () => {
       const object = { param: "admin" };
-      const result = validate(object, {
+      const result = validator.validate(object, {
         param: { required: true },
       });
       expect(result).toBe(true);
