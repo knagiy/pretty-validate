@@ -106,7 +106,7 @@ const validations: any = {
     isWhitelisted: validatorJS.isWhitelisted,
     isSlug: validatorJS.isSlug,
     isStrongPassword: validatorJS.isStrongPassword,
-    isDate: validatorJS.isDate
+    isDate: validatorJS.isDate,
   },
   sanitizers: {
     toLowerCase,
@@ -121,7 +121,7 @@ const validations: any = {
     ltrim: validatorJS.ltrim,
     rtrim: validatorJS.rtrim,
     trim: validatorJS.trim,
-    normalizeEmail: validatorJS.normalizeEmail
+    normalizeEmail: validatorJS.normalizeEmail,
   },
 };
 

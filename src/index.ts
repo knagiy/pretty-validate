@@ -1,7 +1,7 @@
 /* eslint-disable  no-param-reassign */
 import lib from './lib';
 import { DetailedError } from './utils/detailed-error';
-import { ConstructorOptions } from "./@types/constructorOptions.types";
+import { ConstructorOptions } from './@types/constructorOptions.types';
 
 export class Validator {
   protected sanitizers: any;
@@ -10,13 +10,13 @@ export class Validator {
   constructor(options: ConstructorOptions = {}) {
     this.sanitizers = {
       ...lib.sanitizers,
-      ...options.customSanitizers
+      ...options.customSanitizers,
     };
 
     this.validators = {
       ...lib.validators,
-      ...options.customValidators
-    }
+      ...options.customValidators,
+    };
   }
 
   public validate(target: any, validations: any, options: any = {}): boolean {
