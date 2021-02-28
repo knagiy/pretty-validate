@@ -1,6 +1,6 @@
 {
   "name": "pretty-validate",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A light validator for node applications with minimalistic validation rules description.",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -9,11 +9,11 @@
     "build": "tsc",
     "format": "prettier --write \"src/**/*.ts\"",
     "lint": "tslint -p tsconfig.json",
-    "prepare" : "npm run build",
-    "prepublishOnly" : "npm test && npm run lint",
-    "preversion" : "npm run lint",
-    "version" : "npm run format && git add -A src",
-    "postversion" : "git push && git push --tags"
+    "prepare": "npm run build",
+    "prepublishOnly": "npm test && npm run lint",
+    "preversion": "npm run lint",
+    "version": "npm run format && git add -A src",
+    "postversion": "git push && git push --tags"
   },
   "files": [
     "lib/**/*"
