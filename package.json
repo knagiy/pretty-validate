@@ -1,6 +1,6 @@
 {
   "name": "pretty-validate",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "A light validator for node applications with minimalistic validation rules description.",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -29,14 +29,14 @@
   "author": "Kamran Naghiyev",
   "license": "MIT",
   "devDependencies": {
-    "@types/jest": "^26.0.24",
+    "@types/jest": "^27.0.2",
     "@types/validator": "^13.6.3",
-    "jest": "^26.6.3",
+    "jest": "^27.2.5",
     "prettier": "^2.4.1",
-    "ts-jest": "^26.5.6",
+    "ts-jest": "^27.0.6",
     "tslint": "^6.1.3",
     "tslint-config-prettier": "^1.18.0",
-    "typescript": "^4.4.3"
+    "typescript": "^4.4.4"
   },
   "dependencies": {
     "validator": "^13.6.0"
