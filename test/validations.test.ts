@@ -21,6 +21,127 @@ describe('Validations Tests', () => {
       }).toThrow();
     });
   });
+
+  describe('isInt', () => {
+    it('should validate 136', () => {
+      const object: any = { int: 136 };
+      const result = validator.validate(object, {
+        int: { isInt: true }
+      });
+      expect(result).toBe(true);
+    });
+
+    it('should not validate 136.6', () => {
+      const object: any = { int: 136.6 };
+
+      expect(() => {
+        validator.validate(object, {
+          int: { isInt: true }
+        });
+      }).toThrow();
+    });
+
+    it('should not if below min', () => {
+      const object: any = { int: 136 };
+
+      expect(() => {
+        validator.validate(object, {
+          int: { isInt: { min: 150 } }
+        });
+      }).toThrow();
+    });
+
+    it('should validate if above min', () => {
+      const object: any = { int: 136 };
+      const result = validator.validate(object, {
+        int: { isInt: { min: 130 } }
+      });
+      expect(result).toBe(true);
+    });
+
+    it('should not if above max', () => {
+      const object: any = { int: 136 };
+
+      expect(() => {
+        validator.validate(object, {
+          int: { isInt: { max: 110 } }
+        });
+      }).toThrow();
+    });
+
+    it('should validate if below max', () => {
+      const object: any = { int: 136 };
+      const result = validator.validate(object, {
+        int: { isInt: { max: 150 } }
+      });
+
+      expect(result).toBe(true);
+    });
+
+    it('should not validate lt', () => {
+      const object: any = { int: 136 };
+
+      expect(() => {
+        validator.validate(object, {
+          int: { isInt: { lt: 110 } }
+        });
+      }).toThrow();
+    });
+
+    it('should validate lt', () => {
+      const object: any = { int: 136 };
+      const result = validator.validate(object, {
+        int: { isInt: { lt: 150 } }
+      });
+      expect(result).toBe(true);
+    });
+
+    it('should not validate gt', () => {
+      const object: any = { int: 136 };
+
+      expect(() => {
+        validator.validate(object, {
+          int: { isInt: { gt: 150 } }
+        });
+      }).toThrow();
+    });
+
+    it('should validate gt', () => {
+      const object: any = { int: 136 };
+      const result = validator.validate(object, {
+        int: { isInt: { gt: 130 } }
+      });
+      expect(result).toBe(true);
+    });
+
+    it('should not validate isInt, gt & max', () => {
+      const object: any = { int: 1360 };
+
+      expect(() => {
+        validator.validate(object, {
+          int: { isInt: { gt: 150, max: 1000 } }
+        });
+      }).toThrow();
+    });
+
+    it('should not validate isInt, gt & max for non Int', () => {
+      const object: any = { int: 980.2 };
+
+      expect(() => {
+        validator.validate(object, {
+          int: { isInt: { gt: 150, max: 1000 } }
+        });
+      }).toThrow();
+    });
+
+    it('should validate isInt, gt & max', () => {
+      const object: any = { int: 980 };
+      const result = validator.validate(object, {
+        int: { isInt: { gt: 150, max: 1000 } }
+      });
+      expect(result).toBe(true);
+    });
+  });
 });
 
 describe('Custom validations', () => {
