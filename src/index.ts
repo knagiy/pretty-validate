@@ -1,10 +1,11 @@
 /* eslint-disable  no-param-reassign */
 import lib from './lib';
-import { DetailedError } from './utils/detailed-error';
+import DetailedError from './utils/detailed-error';
 import { ConstructorOptions } from './@types/constructorOptions.types';
 
 export default class Validator {
   protected sanitizers: any;
+
   protected validators: any;
 
   constructor(options: ConstructorOptions = {}) {
@@ -28,8 +29,10 @@ export default class Validator {
     }
 
     const targetKeys = Object.keys(target);
-    const validatableKeys: any[] = targetKeys.filter((key) => validations.hasOwnProperty(key));
-    const nonValidatableKeys: any[] = targetKeys.filter((key) => !validations.hasOwnProperty(key));
+    const validatableKeys: any[] = targetKeys.filter((key) => Object.prototype.hasOwnProperty.call(validations, key));
+    const nonValidatableKeys: any[] = targetKeys.filter(
+      (key) => !Object.prototype.hasOwnProperty.call(validations, key),
+    );
 
     if (options.strict) {
       if (nonValidatableKeys.length > 0) {
@@ -55,7 +58,9 @@ export default class Validator {
           target[fieldName] = validationRule.default;
         }
       } else {
-        for (const validationName in validationRule) {
+        const keys = Object.keys(validationRule);
+        for (let i = 0; i < keys.length; i++) {
+          const validationName = keys[i];
           if (['errorMessage', 'default'].indexOf(validationName) >= 0) continue;
 
           const args = [target[fieldName], validationRule[validationName]];

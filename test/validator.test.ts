@@ -1,47 +1,46 @@
-import Validator from "../src";
+import Validator from '../src';
 
 const validator = new Validator();
 
 describe('Validate Method', () => {
-
-  describe("Validation Rules", () => {
-    it("default value", () => {
+  describe('Validation Rules', () => {
+    it('default value', () => {
       const object: any = {};
       const result = validator.validate(object, {
-        param: { default: "default value" }
+        param: { default: 'default value' },
       });
-      expect(object.param).toEqual("default value");
+      expect(object.param).toEqual('default value');
       expect(result).toBe(true);
     });
 
-    it("discard extra parameters", () => {
-      const object: any = { param: "admin", extra: "extra" };
-      const result = validator.validate(object, {
-        param: { default: "default value" }
-      },
+    it('discard extra parameters', () => {
+      const object: any = { param: 'admin', extra: 'extra' };
+      const result = validator.validate(
+        object,
         {
-          discardExtraProps: true
-        });
+          param: { default: 'default value' },
+        },
+        {
+          discardExtraProps: true,
+        },
+      );
       expect(object.extra).toBeUndefined();
       expect(result).toBe(true);
     });
   });
 
-  describe("Failing validation Rules", () => {
-    const errorMessage = "Some of the fields did not pass validation";
+  describe('Failing validation Rules', () => {
+    const errorMessage = 'Some of the fields did not pass validation';
 
-    it("strict mode - no extra params allowed", () => {
-      const object = { param: "admin", extra: "extra" };
+    it('strict mode - no extra params allowed', () => {
+      const object = { param: 'admin', extra: 'extra' };
       expect(() => {
-        validator.validate(object,
-          { param: { required: true } },
-        { strict: true }
-        );
-      }).toThrow("Extra parameters are not permitted");
+        validator.validate(object, { param: { required: true } }, { strict: true });
+      }).toThrow('Extra parameters are not permitted');
     });
 
-    it("required()", () => {
-      const object = { param: "admin" };
+    it('required()', () => {
+      const object = { param: 'admin' };
       expect(() => {
         validator.validate(object, {
           password: { required: true },
@@ -49,8 +48,8 @@ describe('Validate Method', () => {
       }).toThrow(errorMessage);
     });
 
-    it("required() empty string", () => {
-      const object = { param: "" };
+    it('required() empty string', () => {
+      const object = { param: '' };
       expect(() => {
         validator.validate(object, {
           param: { required: true },
@@ -59,18 +58,15 @@ describe('Validate Method', () => {
     });
   });
 
-  describe("Passing validation Rules", () => {
-    it("strict mode - no extra params allowed", () => {
-      const object = { param: "admin" };
-      const result = validator.validate(object,
-        { param: { required: true } },
-        { strict: true }
-      );
+  describe('Passing validation Rules', () => {
+    it('strict mode - no extra params allowed', () => {
+      const object = { param: 'admin' };
+      const result = validator.validate(object, { param: { required: true } }, { strict: true });
       expect(result).toBe(true);
     });
 
-    it("required()", () => {
-      const object = { param: "admin" };
+    it('required()', () => {
+      const object = { param: 'admin' };
       const result = validator.validate(object, {
         param: { required: true },
       });
@@ -78,58 +74,58 @@ describe('Validate Method', () => {
     });
   });
 
-  describe("Validation Rules", () => {
-    it("Should not throw error for valid object", () => {
+  describe('Validation Rules', () => {
+    it('Should not throw error for valid object', () => {
       const object = {
-        email: "test@test.com",
-        password: "testingIsFun19*",
-        type: "user"
+        email: 'test@test.com',
+        password: 'testingIsFun19*',
+        type: 'user',
       };
       const result = validator.validate(object, {
         email: { required: true, isEmail: true },
         password: { required: true, isStrongPassword: true },
-        type: { isIn: ["user", "admin"]}
+        type: { isIn: ['user', 'admin'] },
       });
       expect(result).toBe(true);
     });
 
-    it("default value", () => {
+    it('default value', () => {
       const object: any = {};
       const result = validator.validate(object, {
-        param: { default: "default value" }
+        param: { default: 'default value' },
       });
-      expect(object.param).toEqual("default value");
+      expect(object.param).toEqual('default value');
       expect(result).toBe(true);
     });
 
-    it("discard extra parameters", () => {
-      const object: any = { param: "admin", extra: "extra" };
-      const result = validator.validate(object, {
-          param: { default: "default value" }
+    it('discard extra parameters', () => {
+      const object: any = { param: 'admin', extra: 'extra' };
+      const result = validator.validate(
+        object,
+        {
+          param: { default: 'default value' },
         },
         {
-          discardExtraProps: true
-        });
+          discardExtraProps: true,
+        },
+      );
       expect(object.extra).toBeUndefined();
       expect(result).toBe(true);
     });
   });
 
-  describe("Failing validation Rules", () => {
-    const errorMessage = "Some of the fields did not pass validation";
+  describe('Failing validation Rules', () => {
+    const errorMessage = 'Some of the fields did not pass validation';
 
-    it("strict mode - no extra params allowed", () => {
-      const object = { param: "admin", extra: "extra" };
+    it('strict mode - no extra params allowed', () => {
+      const object = { param: 'admin', extra: 'extra' };
       expect(() => {
-        validator.validate(object,
-          { param: { required: true } },
-          { strict: true }
-        );
-      }).toThrow("Extra parameters are not permitted");
+        validator.validate(object, { param: { required: true } }, { strict: true });
+      }).toThrow('Extra parameters are not permitted');
     });
 
-    it("required()", () => {
-      const object = { param: "admin" };
+    it('required()', () => {
+      const object = { param: 'admin' };
       expect(() => {
         validator.validate(object, {
           password: { required: true },
@@ -137,8 +133,8 @@ describe('Validate Method', () => {
       }).toThrow(errorMessage);
     });
 
-    it("required() empty string", () => {
-      const object = { param: "" };
+    it('required() empty string', () => {
+      const object = { param: '' };
       expect(() => {
         validator.validate(object, {
           param: { required: true },
@@ -146,8 +142,8 @@ describe('Validate Method', () => {
       }).toThrow(errorMessage);
     });
 
-    it("isBoolean()", () => {
-      const object = { param: "maybe" };
+    it('isBoolean()', () => {
+      const object = { param: 'maybe' };
       expect(() => {
         validator.validate(object, {
           param: { isBoolean: true },
@@ -155,17 +151,17 @@ describe('Validate Method', () => {
       }).toThrow(errorMessage);
     });
 
-    it("isEmail()", () => {
+    it('isEmail()', () => {
       const object = { param: 45 };
       expect(() => {
         validator.validate(object, {
           param: { isEmail: true },
         });
-      }).toThrow("Some of the fields did not pass validation.");
+      }).toThrow('Some of the fields did not pass validation.');
     });
 
-    it("isFloat()", () => {
-      const object = { param: "test" };
+    it('isFloat()', () => {
+      const object = { param: 'test' };
       expect(() => {
         validator.validate(object, {
           param: { isNumber: true },
@@ -173,8 +169,8 @@ describe('Validate Method', () => {
       }).toThrow(errorMessage);
     });
 
-    it("isISO31661Alpha2()", () => {
-      const object = { param: "XM" };
+    it('isISO31661Alpha2()', () => {
+      const object = { param: 'XM' };
       expect(() => {
         validator.validate(object, {
           param: { isISO31661Alpha2: true },
@@ -182,8 +178,8 @@ describe('Validate Method', () => {
       }).toThrow(errorMessage);
     });
 
-    it("isStrongPassword()", () => {
-      const object = { param: "admin" };
+    it('isStrongPassword()', () => {
+      const object = { param: 'admin' };
       expect(() => {
         validator.validate(object, {
           param: { isStrongPassword: true },
@@ -192,16 +188,16 @@ describe('Validate Method', () => {
     });
   });
 
-  describe("Passing validation Rules", () => {
-    it("required()", () => {
-      const object = { param: "admin" };
+  describe('Passing validation Rules', () => {
+    it('required()', () => {
+      const object = { param: 'admin' };
       const result = validator.validate(object, {
         param: { required: true },
       });
       expect(result).toBe(true);
     });
 
-    it("isBoolean()", () => {
+    it('isBoolean()', () => {
       const object = { param: true };
       const result = validator.validate(object, {
         param: { isBoolean: true },
@@ -209,15 +205,15 @@ describe('Validate Method', () => {
       expect(result).toBe(true);
     });
 
-    it("isEmail()", () => {
-      const object = { param: "test@gmail.com" };
+    it('isEmail()', () => {
+      const object = { param: 'test@gmail.com' };
       const result = validator.validate(object, {
         param: { isEmail: true },
       });
       expect(result).toBe(true);
     });
 
-    it("isNumber()", () => {
+    it('isNumber()', () => {
       const object = { param: 3.12 };
       const result = validator.validate(object, {
         param: { isNumber: true },
@@ -225,16 +221,16 @@ describe('Validate Method', () => {
       expect(result).toBe(true);
     });
 
-    it("isISO31661Alpha2()", () => {
-      const object = { param: "CA" };
+    it('isISO31661Alpha2()', () => {
+      const object = { param: 'CA' };
       const result = validator.validate(object, {
         param: { isISO31661Alpha2: true },
       });
       expect(result).toBe(true);
     });
 
-    it("isStrongPassword()", () => {
-      const object = { param: "*sajjs77Jasbbd*12as" };
+    it('isStrongPassword()', () => {
+      const object = { param: '*sajjs77Jasbbd*12as' };
       const result = validator.validate(object, {
         param: { isStrongPassword: true },
       });
@@ -242,17 +238,17 @@ describe('Validate Method', () => {
     });
   });
 
-  describe("Sanitizer Rules", () => {
-    it("Should not throw error for valid object", () => {
+  describe('Sanitizer Rules', () => {
+    it('Should not throw error for valid object', () => {
       const object = {
-        ltrim: " Left",
-        normalizeEmail: "James@company.com",
-        rtrim: "Right ",
-        toBoolean: "true",
-        toDate: "2021-10-20",
-        toFloat: "3.14",
-        toInt: "3",
-        trim: " trim ",
+        ltrim: ' Left',
+        normalizeEmail: 'James@company.com',
+        rtrim: 'Right ',
+        toBoolean: 'true',
+        toDate: '2021-10-20',
+        toFloat: '3.14',
+        toInt: '3',
+        trim: ' trim ',
       };
       const result = validator.validate(object, {
         ltrim: { ltrim: true },
@@ -267,14 +263,14 @@ describe('Validate Method', () => {
 
       expect(result).toBe(true);
       expect(object).toMatchObject({
-        ltrim: "Left",
-        normalizeEmail: "james@company.com",
-        rtrim: "Right",
+        ltrim: 'Left',
+        normalizeEmail: 'james@company.com',
+        rtrim: 'Right',
         toBoolean: true,
-        toDate: new Date("2021-10-20"),
+        toDate: new Date('2021-10-20'),
         toFloat: 3.14,
         toInt: 3,
-        trim: "trim"
+        trim: 'trim',
       });
     });
   });

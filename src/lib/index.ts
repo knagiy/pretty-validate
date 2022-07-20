@@ -1,5 +1,4 @@
 import * as validatorLib from 'validator';
-const validatorJS = validatorLib.default;
 
 // Validators
 import isEnum from './isEnum';
@@ -13,6 +12,8 @@ import required from './required';
 import toLowerCase from './toLowerCase';
 import toUpperCase from './toUpperCase';
 import toInt from './toInt';
+
+const validatorJS = validatorLib.default;
 
 const validations: any = {
   validators: {
