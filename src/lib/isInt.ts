@@ -4,10 +4,10 @@ export default function isInt(value: any, options: any = {}) {
   }
 
   // Check min/max/lt/gt
-  const minCheckPassed = !options.hasOwnProperty('min') || value >= options.min;
-  const maxCheckPassed = !options.hasOwnProperty('max') || value <= options.max;
-  const ltCheckPassed = !options.hasOwnProperty('lt') || value < options.lt;
-  const gtCheckPassed = !options.hasOwnProperty('gt') || value > options.gt;
+  const minCheckPassed = !Object.prototype.hasOwnProperty.call(options, 'min') || value >= options.min;
+  const maxCheckPassed = !Object.prototype.hasOwnProperty.call(options, 'max') || value <= options.max;
+  const ltCheckPassed = !Object.prototype.hasOwnProperty.call(options, 'lt') || value < options.lt;
+  const gtCheckPassed = !Object.prototype.hasOwnProperty.call(options, 'gt') || value > options.gt;
 
   return minCheckPassed && maxCheckPassed && ltCheckPassed && gtCheckPassed;
 }
