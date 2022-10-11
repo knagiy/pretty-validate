@@ -25,7 +25,7 @@ export default class Validator {
 
     function processError(err: any): void {
       const message = err instanceof Error ? err.message : err;
-      errors.push(`Validation error: ${message}`);
+      errors.push(message);
     }
 
     const targetKeys = Object.keys(target);
