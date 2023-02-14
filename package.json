@@ -1,6 +1,6 @@
 {
   "name": "pretty-validate",
-  "version": "0.1.5",
+  "version": "1.0.0",
   "description": "A light validator for node applications with minimalistic validation rules description.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

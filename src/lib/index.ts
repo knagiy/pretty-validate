@@ -7,11 +7,18 @@ import isNumber from './isNumber';
 import isString from './isString';
 import isBoolean from './isBoolean';
 import required from './required';
+import isArray from './isArray';
+import isArrayOfEnums from './isArrayOfEnums';
+import isArrayOfStrings from './isArrayOfStrings';
+import isArrayOfUUIDs from './isArrayOfUUIDs';
+import maxLength from './maxLength';
 
 // Sanitizers
 import toLowerCase from './toLowerCase';
 import toUpperCase from './toUpperCase';
 import toInt from './toInt';
+import toArray from './toArray';
+import toPrefixedUrl from './toPrefixedUrl';
 
 const validatorJS = validatorLib.default;
 
@@ -23,6 +30,11 @@ const validations: any = {
     isString,
     isBoolean,
     required,
+    isArray,
+    isArrayOfEnums,
+    isArrayOfStrings,
+    isArrayOfUUIDs,
+    maxLength,
 
     // validator JS methods
     isISO8601: validatorJS.isISO8601,
@@ -109,6 +121,8 @@ const validations: any = {
     toLowerCase,
     toUpperCase,
     toInt,
+    toArray,
+    toPrefixedUrl,
 
     // validator JS methods
     toFloat: validatorJS.toFloat,

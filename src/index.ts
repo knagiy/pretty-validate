@@ -21,11 +21,11 @@ export default class Validator {
   }
 
   public validate(target: any, validations: any, options: any = {}): boolean {
-    const errors: string[] = [];
+    const errors: { message: string; field: string }[] = [];
 
-    function processError(err: any): void {
+    function processError(err: any, field: string): void {
       const message = err instanceof Error ? err.message : err;
-      errors.push(message);
+      errors.push({ message, field });
     }
 
     const targetKeys = Object.keys(target);
@@ -53,7 +53,7 @@ export default class Validator {
 
       if ([null, undefined, ''].includes(target[fieldName])) {
         if (validationRule.required) {
-          processError(validationRule.errorMessage || `Missing required parameter \`${fieldName}\``);
+          processError(validationRule.errorMessage || 'Required value', fieldName);
         } else if (validationRule.default) {
           target[fieldName] = validationRule.default;
         }
@@ -73,12 +73,12 @@ export default class Validator {
             try {
               sanitizedVal = this.sanitizers[validationName](...args);
             } catch (error) {
-              processError(error);
+              processError(error, fieldName);
               break;
             }
 
             if (sanitizedVal instanceof Error) {
-              processError(sanitizedVal);
+              processError(sanitizedVal, fieldName);
               break;
             } else {
               target[fieldName] = sanitizedVal;
@@ -88,18 +88,16 @@ export default class Validator {
             try {
               result = this.validators[validationName](...args);
             } catch (error) {
-              processError(error);
+              processError(error, fieldName);
               break;
             }
 
             if (result === false) {
               args.shift();
-              processError(
-                validationRule.errorMessage || `${fieldName} failed validation = ${validationName}(${args.join(',')})`,
-              );
+              processError(validationRule.errorMessage || `Failed validation ${validationName}`, fieldName);
               break;
             } else if (result instanceof Error) {
-              processError(result);
+              processError(result, fieldName);
               break;
             }
           } else {

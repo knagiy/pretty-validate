@@ -274,4 +274,43 @@ describe('Validate Method', () => {
       });
     });
   });
+
+  describe('Errors', () => {
+    it('Should throw valid error with all fields violating rules', () => {
+      const object = {
+        id: '123',
+        name: { james: true },
+        value: 'A',
+        text: '123456',
+      };
+
+      try {
+        validator.validate(object, {
+          id: { required: true, isUUID: true, errorMessage: 'Invalid ID' },
+          name: { required: true, isString: true },
+          value: { required: true, isArray: true, errorMessage: 'This is not an array Johnny' },
+          text: { isString: true, maxLength: 5 },
+          number: { required: true },
+        });
+      } catch (error: any) {
+        expect(error.message).toBe('Some of the fields did not pass validation.');
+        expect(error.details.length).toEqual(5);
+
+        expect(error.details[0].message).toEqual('Invalid ID');
+        expect(error.details[0].field).toEqual('id');
+
+        expect(error.details[1].message).toEqual('Failed validation isString');
+        expect(error.details[1].field).toEqual('name');
+
+        expect(error.details[2].message).toEqual('This is not an array Johnny');
+        expect(error.details[2].field).toEqual('value');
+
+        expect(error.details[3].message).toEqual('Failed validation maxLength');
+        expect(error.details[3].field).toEqual('text');
+
+        expect(error.details[4].message).toEqual('Required value');
+        expect(error.details[4].field).toEqual('number');
+      }
+    });
+  });
 });
