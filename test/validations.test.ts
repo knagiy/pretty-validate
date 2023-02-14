@@ -1,8 +1,9 @@
 import Validator from '../src';
+import isArray from '../src/lib/isArray';
+
+const validator = new Validator();
 
 describe('Validations Tests', () => {
-  const validator = new Validator();
-
   describe('isISO8601()', () => {
     it('should validate valid isISO8601', () => {
       const object: any = { date: '2007-04-05T24:00' };
@@ -140,6 +141,195 @@ describe('Validations Tests', () => {
         int: { isInt: { gt: 150, max: 1000 } },
       });
       expect(result).toBe(true);
+    });
+  });
+
+  describe('isArray', () => {
+    it('Should validate valid array', () => {
+      const array = ['a', 'b', 'c'];
+      const result = validator.validate(
+        { array },
+        {
+          array: { isArray: true },
+        },
+      );
+      expect(result).toBe(true);
+    });
+    it('Should not validate invalid array', () => {
+      const array = "['a', 'b', 'c']";
+      expect(() => {
+        validator.validate(
+          { array },
+          {
+            array: { isArray: true },
+          },
+        );
+      }).toThrow();
+    });
+  });
+
+  describe('isArrayOfEnums', () => {
+    enum Fruits {
+      apple = 'apple',
+      orange = 'orange',
+      banana = 'banana',
+    }
+    it('Should validate good value', () => {
+      const list = [Fruits.apple, Fruits.orange];
+      const result = validator.validate(
+        { list },
+        {
+          list: { isArrayOfEnums: Fruits },
+        },
+      );
+      expect(result).toBe(true);
+    });
+    it('Should not validate invalid array', () => {
+      const list = ['tomato'];
+      expect(() => {
+        validator.validate(
+          { list },
+          {
+            list: { isArrayOfEnums: Fruits },
+          },
+        );
+      }).toThrow();
+    });
+  });
+
+  describe('isArrayOfStrings', () => {
+    it('Should validate good array', () => {
+      const array = ['apple', 'orange'];
+      const result = validator.validate(
+        {
+          array,
+        },
+        {
+          array: { isArrayOfStrings: true },
+        },
+      );
+      expect(result).toBe(true);
+    });
+    it('Should not validate invalid array', () => {
+      const list = [1, 2];
+      expect(() => {
+        validator.validate(
+          { list },
+          {
+            list: { isArrayOfStrings: true },
+          },
+        );
+      }).toThrow();
+    });
+  });
+  describe('isArrayOfUUIDs', () => {
+    it('Should validate good array', () => {
+      const array = ['60A8C2DC-1A95-46A6-8F4B-21A73FF9BBD4', '64756025-5244-4c20-b5b3-471996e4e144'];
+      const result = validator.validate(
+        {
+          array,
+        },
+        {
+          array: { isArrayOfUUIDs: true },
+        },
+      );
+      expect(result).toBe(true);
+    });
+    it('Should not validate invalid array', () => {
+      const array = ['60A8C2DC1A95A1A73FF9BBD4'];
+      expect(() => {
+        validator.validate(
+          { array },
+          {
+            array: { isArrayOfUUIDs: true },
+          },
+        );
+      }).toThrow();
+    });
+    it('Should not validate non array', () => {
+      const array = 'E64936D6-8B6B-4972-86E6-9DBB3A4A3470';
+      expect(() => {
+        validator.validate(
+          { array },
+          {
+            array: { isArrayOfUUIDs: true },
+          },
+        );
+      }).toThrow();
+    });
+  });
+
+  describe('maxLength', () => {
+    it('Should validate valid value', () => {
+      const value = '1234567890';
+      const result = validator.validate(
+        { value },
+        {
+          value: {
+            maxLength: 11,
+          },
+        },
+      );
+      expect(result).toBe(true);
+    });
+    it('Should throw an error for longer value', () => {
+      const value = '1234567890';
+      expect(() => {
+        validator.validate(
+          { value },
+          {
+            value: {
+              maxLength: 9,
+            },
+          },
+        );
+      }).toThrow();
+    });
+  });
+});
+
+describe('Sanitizer Tests', () => {
+  describe('toArray', () => {
+    it('Should sanitize to array', () => {
+      const object = {
+        value: 'E64936D6-8B6B-4972-86E6-9DBB3A4A3470',
+      };
+      validator.validate(object, {
+        value: { toArray: true },
+      });
+
+      expect(isArray(object.value)).toBe(true);
+      expect(object.value[0]).toEqual('E64936D6-8B6B-4972-86E6-9DBB3A4A3470');
+    });
+    it('Should leave value unchanged', () => {
+      const object = {
+        value: ['E64936D6-8B6B-4972-86E6-9DBB3A4A3470'],
+      };
+      validator.validate(object, {
+        value: { toArray: true },
+      });
+
+      expect(object.value[0]).toEqual('E64936D6-8B6B-4972-86E6-9DBB3A4A3470');
+    });
+  });
+  describe('toPrefixedUrl', () => {
+    it('Should append HTTPS', () => {
+      const object = {
+        url: 'google.com',
+      };
+      validator.validate(object, {
+        url: { toPrefixedUrl: true },
+      });
+      expect(object.url).toEqual('https://google.com');
+    });
+    it('Should not append HTTPS', () => {
+      const object = {
+        url: 'http://google.com',
+      };
+      validator.validate(object, {
+        url: { toPrefixedUrl: true },
+      });
+      expect(object.url).toEqual('http://google.com');
     });
   });
 });
