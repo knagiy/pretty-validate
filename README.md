@@ -45,6 +45,7 @@ try {
       email: {
         required: true,
         isEmail: true,
+        errorMessage: 'Your custom error message if field fails the validaton'
       },
       password: {
         required: true,
